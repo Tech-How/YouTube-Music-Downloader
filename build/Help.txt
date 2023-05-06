@@ -1,0 +1,26 @@
+Welcome!
+
+This script will help you automatically download content from YouTube Music as MP3 files and use them with other media programs.
+All available track information, including album artwork, is downloaded and applied to the file.
+
+Please note:
+When finding URLs, make sure the item you selected is a song. Videos are currently unsupported.
+
+
+How to use:
+1: Click the Visit YouTube Music shortcut. (Or go to https://music.youtube.com)
+2: Search for a song, playlist, or album, and copy the link from the share button.
+3: Open the Add Music script, and paste your links in.
+
+Each of your songs will be downloaded and placed in this directory, under the YTMusic folder.
+NOTE: The downloader window will close when all the items in the queue have finished. Closing this window manually may result in corrupted downloads.
+
+
+Other Information:
+The Cache folder is used during downloads to place music and artwork before the metadata is formatted with ffmpeg. This data is deleted at the end of each download.
+
+When you add music, the song IDs are placed in the URLs.txt file. Each line is read by the downloader and the corresponding song is downloaded.
+After the downloader has finished going through all of the songs, the next time the program is run the URLs.txt file is renamed to URLs.txt.bak.
+3 of these backups are kept at one time, in case you need to redownload previous music. These will be deleted automatically; there's no need to modify them unless you are restoring one.
+
+NOTE: The URLs.txt file is not intended to be edited manually. The exact URLs are not stored, only the video IDs. Entering full URLs will not work.
