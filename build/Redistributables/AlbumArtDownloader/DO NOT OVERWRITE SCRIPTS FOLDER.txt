@@ -1,0 +1,1 @@
+This folder contains modified scripts specifically for this program. Overwriting it with the stock scripts from the program will break things.
