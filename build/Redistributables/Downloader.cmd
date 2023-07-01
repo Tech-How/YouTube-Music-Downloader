@@ -1,6 +1,6 @@
 :YTM Download Script
 :Created by Tech How - https://github.com/Tech-How
-:Version 1.0
+:Version 1.1
 
 :Uses third-party licenses
 :yt-dlp - https://github.com/yt-dlp/yt-dlp
