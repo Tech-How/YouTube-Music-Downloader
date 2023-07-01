@@ -72,11 +72,11 @@ if errorlevel 1 goto Re-format
 
 :Use FFMPEG to embed album artwork, re-format contributing artists, and strip unnecessary data
 if %keepalbumcover%== 1 copy "%workingDir%\Cache\%temp%\%track%.jpg" "%workingDir%\Cache\Album.jpg"
-Redistributables\FFMPEG\bin\ffmpeg.exe -i "%workingDir%\Cache\%temp%\%track%.tmp.mp3" -i "%workingDir%\Cache\%temp%\%track%.jpg" -map 0:0 -map 1:0 -c copy -id3v2_version 3 -metadata artist="%artistdisplay%" -metadata synopsis=\"\" -metadata description=\"\" -metadata purl=\"\" -metadata comment=\"\" "%workingDir%\YTMusic\%tracklocator%.mp3"
+Redistributables\FFMPEG\bin\ffmpeg.exe -i "%workingDir%\Cache\%temp%\%track%.tmp.mp3" -i "%workingDir%\Cache\%temp%\%track%.jpg" -map 0:0 -map 1:0 -c copy -id3v2_version 3 -metadata artist="%artistdisplay%" -metadata album_artist="%artistdisplay%" -metadata synopsis=\"\" -metadata description=\"\" -metadata purl=\"\" -metadata comment=\"\" "%workingDir%\YTMusic\%tracklocator%.mp3"
 goto End
 
 :Re-format contributing artists without embedding album artwork, if none is available
-Redistributables\FFMPEG\bin\ffmpeg.exe -i "%workingDir%\Cache\%temp%\%track%.tmp.mp3" -map 0:0 -c copy -id3v2_version 3 -metadata artist="%artistdisplay%" -metadata synopsis=\"\" -metadata description=\"\" -metadata purl=\"\" -metadata comment=\"\" "%workingDir%\YTMusic\%tracklocator%.mp3"
+Redistributables\FFMPEG\bin\ffmpeg.exe -i "%workingDir%\Cache\%temp%\%track%.tmp.mp3" -map 0:0 -c copy -id3v2_version 3 -metadata artist="%artistdisplay%" -metadata album_artist="%artistdisplay%" -metadata synopsis=\"\" -metadata description=\"\" -metadata purl=\"\" -metadata comment=\"\" "%workingDir%\YTMusic\%tracklocator%.mp3"
 
 :End
 rd /s /q "%workingDir%\Cache\%temp%"
