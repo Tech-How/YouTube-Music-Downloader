@@ -11,9 +11,9 @@ This project will allow you to use [youtube-dlp](https://github.com/yt-dlp/yt-dl
 ## Setup Instructions
 This project is written in batch, and requires additional programs that I do not own the license to in order to function correctly. Below are links to those programs, as well as where they need to be placed to be read by the downloader.
 - If you haven't already, [download](https://github.com/Tech-How/YouTube-Music-Downloader/releases) the latest version of this project. **Unzip the contents** to a new directory.
-- Download [yt-dlp](https://github.com/yt-dlp/yt-dlp/releases). (You are looking for yt-dlp.exe.) Once downloaded, save the file as **[Project Folder]\Redistributables\YouTube-DL\youtube-dl.exe**. _(You will need to **rename** the file.)_
-- Download [FFMPEG](https://github.com/GyanD/codexffmpeg/releases/download/2021-02-07-git-a52b9464e4/ffmpeg-2021-02-07-git-a52b9464e4-full_build.zip). Once downloaded, **unzip** the contents to **[Project Folder]\Redistributables\FFMPEG**. _(There should be a bin, doc, and presets folder here.)_
-- Download and install [Album Art Downloader](https://sourceforge.net/projects/album-art/). Once installed, **copy** the contents from (C:\Program Files\AlbumArtDownloader) to **[Project Folder]\Redistributables\AlbumArtDownloader, EXCEPT** for the Scripts folder, **do not** overwrite it.
+- Download [yt-dlp](https://github.com/yt-dlp/yt-dlp/releases). (You are looking for yt-dlp.exe.) Once downloaded, save the file into **Redistributables\YouTube-DL**.
+- Download [FFMPEG](https://github.com/GyanD/codexffmpeg/releases/download/2021-02-07-git-a52b9464e4/ffmpeg-2021-02-07-git-a52b9464e4-full_build.zip). Once downloaded, save the file into **Redistributables\FFMPEG**.
+- Download and install [Album Art Downloader](https://sourceforge.net/projects/album-art/). Once installed, **copy** the contents from (C:\Program Files\AlbumArtDownloader) to **Redistributables\AlbumArtDownloader, EXCEPT** for the Scripts folder, **do not** overwrite it.
 - You should be all set. The program will notify you if there are any missing components. Refer to the included Help file for more information.
 
 ## Other Information
