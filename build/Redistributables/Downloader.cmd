@@ -1,6 +1,6 @@
 :YTM Download Script
 :Created by Tech How - https://github.com/Tech-How
-:Version 1.1
+:Version 1.2
 
 :Uses third-party licenses
 :yt-dlp - https://github.com/yt-dlp/yt-dlp
@@ -30,7 +30,7 @@ echo %currenttrack% > Track.txt
 cd..
 set currenttrack=%currenttrack: =%
 set totaltracks=%totaltracks: =%
-Redistributables\YouTube-DL\youtube-dl.exe "https://www.youtube.com/watch?v=%URL%" -o "%workingDir%\Cache\%temp%\%%(track)s;%%(artist)s;%%(album)s;" -x --audio-format mp3 --no-warnings --embed-metadata --no-check-certificate --audio-quality 0 --restrict-filenames --ffmpeg-location "%~dp0FFMPEG\bin\ffmpeg.exe" --postprocessor-args "-metadata track="%currenttrack%/%totaltracks%""
+Redistributables\YouTube-DL\youtube-dl.exe "https://www.youtube.com/watch?v=%URL%" -o "%workingDir%\Cache\%temp%\%%(track)s;%%(artist)s;%%(album)s;" -x --audio-format mp3 --no-warnings --embed-metadata --no-check-certificate --audio-quality 0 --restrict-filenames --ffmpeg-location "%~dp0FFMPEG\bin\ffmpeg.exe" --postprocessor-args "-metadata track="%currenttrack%/%totaltracks%" -metadata disc="1/1""
 for /f "tokens=* usebackq" %%f in (`dir /b /a-d "%workingDir%\Cache\%temp%"`) do set filename1=%%f
 
 :Replace underscores with spaces and rename file
