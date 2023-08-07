@@ -8,3 +8,5 @@ Windows treats all applications downloaded from the internet as 'untrusted' unle
 In Microsoft Edge, you may need to click More Details > Keep Anyway on this file.
 
 In Windows, you may need to click More info > Run anyway on the SmartScreen popup.
+
+[Back to Downloads](https://github.com/Tech-How/YouTube-Music-Downloader/releases)
