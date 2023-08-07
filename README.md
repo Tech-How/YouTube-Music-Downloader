@@ -18,7 +18,7 @@ This project will allow you to use [youtube-dlp](https://github.com/yt-dlp/yt-dl
 
 ## Setup Instructions
 This project is written in batch, and requires additional programs that I do not own the license to in order to function correctly. Below are links to those programs, as well as where they need to be placed to be read by the downloader.
-- If you haven't already, [download](https://github.com/Tech-How/YouTube-Music-Downloader/releases) the latest version of this project. **Unzip the contents** to a new directory.
+- If you haven't already, [download](https://github.com/Tech-How/YouTube-Music-Downloader/releases) and run the latest version of this project. A project folder will be generated; feel free to move this wherever you like.
 - Download [yt-dlp](https://github.com/yt-dlp/yt-dlp/releases). (You are looking for yt-dlp.exe.) Once downloaded, save the file into **Redistributables\YouTube-DL**.
 - Download [FFMPEG](https://github.com/GyanD/codexffmpeg/releases/download/2021-02-07-git-a52b9464e4/ffmpeg-2021-02-07-git-a52b9464e4-full_build.zip). Once downloaded, save the file into **Redistributables\FFMPEG**.
 - Download and install [Album Art Downloader](https://sourceforge.net/projects/album-art/).
