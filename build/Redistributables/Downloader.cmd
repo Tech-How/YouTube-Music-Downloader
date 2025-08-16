@@ -1,6 +1,6 @@
 :YTM Download Script
-:Created by Tech How - https://github.com/Tech-How
-:Version 1.2
+:Created by Tristian Dedinas - https://github.com/Tech-How
+:Version 1.3
 
 :Uses third-party licenses
 :yt-dlp - https://github.com/yt-dlp/yt-dlp
@@ -17,6 +17,18 @@ set temp=%random%
 md "%workingDir%\Cache\%temp%"
 if errorlevel 1 goto tempdir
 
+:Progress logic
+set /p dlProgress=<Redistributables\dlProgress
+set dlProgress=%dlProgress: =%
+set /a dlProgress=%dlProgress%+1
+echo.
+echo.
+echo Fetching track %dlProgress%/%2...
+title Download - %dlProgress%/%2
+echo.
+echo.
+echo %dlProgress% > Redistributables\dlProgress
+
 :Check whether or not to count track numbers
 cd Redistributables
 echo %date% %time% > LastRun.txt
@@ -30,7 +42,36 @@ echo %currenttrack% > Track.txt
 cd..
 set currenttrack=%currenttrack: =%
 set totaltracks=%totaltracks: =%
+set dlTryCount=0
+set dlTrySeconds=0
+:dlRetry
 Redistributables\YouTube-DL\youtube-dl.exe "https://www.youtube.com/watch?v=%URL%" -o "%workingDir%\Cache\%temp%\%%(track)s;%%(artist)s;%%(album)s;" -x --audio-format mp3 --no-warnings --embed-metadata --no-check-certificate --audio-quality 0 --restrict-filenames --ffmpeg-location "%~dp0FFMPEG\bin\ffmpeg.exe" --postprocessor-args "-metadata track="%currenttrack%/%totaltracks%" -metadata disc="1/1""
+if errorlevel 1 (
+	if %dlTryCount%==6 (
+	echo.
+	echo.
+	echo -------------------------------------------
+	echo FATAL: Download of track ID %URL% failed^!
+	echo Request rejected by Google. Not retrying.
+	echo -------------------------------------------
+	echo.
+	echo.
+	goto dlFail
+)
+set /a dlTryCount=%dlTryCount%+1
+set /a dlTrySeconds=%dlTrySeconds%+15
+echo.
+echo.
+echo -----------------------------------------------------------
+echo ERROR: Download of track ID %URL% failed^!
+echo Request rejected by Google. Retrying in %dlTrySeconds%...
+echo -----------------------------------------------------------
+echo.
+echo.
+timeout %dlTrySeconds%
+goto dlRetry
+)
+:dlFail
 for /f "tokens=* usebackq" %%f in (`dir /b /a-d "%workingDir%\Cache\%temp%"`) do set filename1=%%f
 
 :Replace underscores with spaces and rename file
@@ -67,8 +108,12 @@ if exist "%workingDir%\Cache\Album.jpg" copy "%workingDir%\Cache\Album.jpg" "%wo
 cd Redistributables
 if exist TotalTracks.txt set keepalbumcover=1
 cd..
+echo.
+echo Searching for artwork...
 Redistributables\AlbumArtDownloader\aad.exe /ar "%artistfull%" /al "%albumfull%" /p "%workingDir%\Cache\%temp%\%track%.jpg" /s "iTunes"
-if errorlevel 1 goto Re-format
+if not exist "%workingDir%\Cache\%temp%\%track%.jpg" goto Re-format
+echo Success
+echo.
 
 :Use FFMPEG to embed album artwork, re-format contributing artists, and strip unnecessary data
 if %keepalbumcover%== 1 copy "%workingDir%\Cache\%temp%\%track%.jpg" "%workingDir%\Cache\Album.jpg"
@@ -76,6 +121,8 @@ Redistributables\FFMPEG\bin\ffmpeg.exe -i "%workingDir%\Cache\%temp%\%track%.tmp
 goto End
 
 :Re-format contributing artists without embedding album artwork, if none is available
+echo No artwork found
+echo.
 Redistributables\FFMPEG\bin\ffmpeg.exe -i "%workingDir%\Cache\%temp%\%track%.tmp.mp3" -map 0:0 -c copy -id3v2_version 3 -metadata artist="%artistdisplay%" -metadata album_artist="%artistdisplay%" -metadata synopsis=\"\" -metadata description=\"\" -metadata purl=\"\" -metadata comment=\"\" "%workingDir%\YTMusic\%tracklocator%.mp3"
 
 :End
