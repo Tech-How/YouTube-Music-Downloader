@@ -1,6 +1,6 @@
 :YTM Download Launcher
-:Created by Tech How - https://github.com/Tech-How
-:Version 1.2
+:Created by Tristian Dedinas - https://github.com/Tech-How
+:Version 1.3
 
 :Uses third-party licenses
 :yt-dlp - https://github.com/yt-dlp/yt-dlp
@@ -26,6 +26,22 @@ if not exist Settings goto setup
 if not exist Settings\autoImport.txt goto setup
 
 :initialize
+:yt-dl-update
+set engineUpdatesAllowed=0
+set lastUpdateCheck=0
+if exist Settings\engineUpdatesAllowed.txt set/p engineUpdatesAllowed=<Settings\engineUpdatesAllowed.txt
+set engineUpdatesAllowed=%engineUpdatesAllowed: =%
+if %engineUpdatesAllowed%==false goto yt-dl-update-skip
+if exist Settings\lastUpdateCheck.txt set/p lastUpdateCheck=<Settings\lastUpdateCheck.txt
+set lastUpdateCheck=%lastUpdateCheck: =%
+for /F "tokens=2 delims=. " %%a in ("%date%") do set "currentDate=%%a"
+if "%currentDate%" equ "%lastUpdateCheck%" goto yt-dl-update-skip
+echo Checking for engine updates...
+Redistributables\YouTube-DL\youtube-dl.exe --update >nul 2>&1
+echo %currentDate% > Settings\lastUpdateCheck.txt
+echo true > Settings\engineUpdatesAllowed.txt
+cls
+:yt-dl-update-skip
 set autoImport=false
 set/p autoImport=<Settings\autoImport.txt
 set autoImport=%autoImport: =%
@@ -81,6 +97,7 @@ if not exist "Redistributables\YouTube-DL\youtube-dl.exe" set integrityverificat
 if not exist "Redistributables\Downloader.cmd" set integrityverification=1 && echo Missing "Redistributables\Downloader.cmd"
 if not exist "Redistributables\Get Info.cmd" set integrityverification=1 && echo Missing "Redistributables\Get Info.cmd"
 if not exist "Redistributables\Sleep.vbs" set integrityverification=1 && echo Missing "Redistributables\Sleep.vbs"
+if not exist "Redistributables\msg.exe" set integrityverification=1 && echo Missing "Redistributables\msg.exe"
 if %integrityverification%== 2 goto integritypass
 echo.
 echo One or more of the required redistributables is missing or not found. Please visit this project on GitHub.
@@ -105,7 +122,7 @@ del /q Redistributables\FFMPEG\ffmpeg-2021-02-07-git-a52b9464e4-full_build.zip
 if exist "C:\Program Files\AlbumArtDownloader" (
 copy /y "C:\Program Files\AlbumArtDownloader" "Redistributables\AlbumArtDownloader" >nul 2>&1
 del /q "Redistributables\AlbumArtDownloader\AlbumArt.exe"
-msg %username% All required files from AlbumArtDownloader have been copied to this project folder. You're free to uninstall the program now if you'd like.
+Redistributables\msg.exe %username% All required files from AlbumArtDownloader have been copied to this project folder. You're free to uninstall the program now if you'd like.
 )
 goto integritycheck_resume
 
@@ -181,8 +198,10 @@ rd /s /q Settings >nul 2>&1
 exit
 
 :singles
-for /f "usebackq tokens=*" %%a in ("%~dp0URLs.txt") do call "%~dp0Redistributables\Downloader.cmd" %%a
+echo 0 > "%~dp0Redistributables\dlProgress"
+for /f "usebackq tokens=*" %%a in ("%~dp0URLs.txt") do call "%~dp0Redistributables\Downloader.cmd" %%a %trackcount%
 timeout 1 /nobreak >nul
+del /q "%~dp0Redistributables\dlProgress"
 del /q Cache\Album.jpg >nul 2>&1
 rd Cache >nul 2>&1
 set "saveFolder=%date:/=_%"

@@ -1,6 +1,6 @@
 :YTM Import Script
-:Created by Tech How - https://github.com/Tech-How
-:Version 1.2
+:Created by Tristian Dedinas - https://github.com/Tech-How
+:Version 1.3
 
 @echo off
 title YTM Import

@@ -1,6 +1,6 @@
 :YTM Music Scraper
-:Created by Tech How - https://github.com/Tech-How
-:Version 1.2
+:Created by Tristian Dedinas - https://github.com/Tech-How
+:Version 1.3
 
 :Uses third-party licenses
 :yt-dlp - https://github.com/yt-dlp/yt-dlp
@@ -13,25 +13,64 @@ cls
 set checkBusy=0
 if exist Cache set /a checkBusy=%checkBusy%+1
 if exist YTMusic set /a checkBusy=%checkBusy%+1
-if %checkBusy%==2 echo Not so fast! It appears music is already being downloaded. && echo Please wait for the current download to finish. && echo. && echo If this isn't the case, another download may have been interrupted. && echo Deleting the Cache and YTMusic folders will resolve this issue. && pause && exit
+if %checkBusy%==2 echo Not so fast^! It appears music is already being downloaded. && echo Please wait for the current download to finish. && echo. && echo If this isn't the case, another download may have been interrupted. && echo Deleting the Cache and YTMusic folders will resolve this issue. && pause && exit
 if exist "%~dp0Redistributables\LastRun.txt" goto cleanup
+
 :start
+:yt-dl-update
+set engineUpdatesAllowed=0
+set lastUpdateCheck=0
+if exist Settings\engineUpdatesAllowed.txt set/p engineUpdatesAllowed=<Settings\engineUpdatesAllowed.txt
+set engineUpdatesAllowed=%engineUpdatesAllowed: =%
+if %engineUpdatesAllowed%==false goto yt-dl-update-skip
+if exist Settings\lastUpdateCheck.txt set/p lastUpdateCheck=<Settings\lastUpdateCheck.txt
+set lastUpdateCheck=%lastUpdateCheck: =%
+for /F "tokens=2 delims=. " %%a in ("%date%") do set "currentDate=%%a"
+if "%currentDate%" equ "%lastUpdateCheck%" goto yt-dl-update-skip
+echo Checking for engine updates...
+Redistributables\YouTube-DL\youtube-dl.exe --update >nul 2>&1
+echo %currentDate% > Settings\lastUpdateCheck.txt
+echo true > Settings\engineUpdatesAllowed.txt
+cls
+
+:yt-dl-update-skip
 goto help
+
 :prompt
+if not exist "%~dp0URLs.txt" goto skip_count
+set trackcount=0
+for /f "tokens=* usebackq" %%a in (`find /v /c "" "%~dp0URLs.txt"`) do set trackcount=%%a
+for /f "tokens=3 delims=:" %%f in ("%trackcount%") do set trackcount=%%f
+set trackcount=%trackcount: =%
+set pl=items
+if %trackcount%== 1 set pl=item
+echo %trackcount% %pl% queued
+echo ----------------
+
+:skip_count
 set/p "URL=Paste your link here: "
+echo "%URL%"|find "beatbump.io/listen?id" >nul
+if %errorlevel% neq 1 set URL=%URL:beatbump.io/listen?id=youtube.com/watch?v% && goto parseNow
 echo "%URL%"|find "music.youtube.com" >nul
 if errorlevel 1 goto error
 set URL=%URL:music=www%
+
+:parseNow
 cls
+title Loading...
 echo Please wait while your music is being prepared. This may take a few minutes.
 echo ...
 timeout 1 /nobreak >nul
-echo Downloading track information for URL:
+echo Fetching track information for URL:
 echo %URL%
-Redistributables\YouTube-DL\youtube-dl.exe -i --get-id %URL% >> "%~dp0URLs.txt"
+Redistributables\YouTube-DL\youtube-dl.exe --ffmpeg-location "%~dp0Redistributables\FFMPEG\bin\ffmpeg.exe" -i --get-id %URL% >> "%~dp0URLs.txt"
 cls
-echo Success^! To download this music now, close this script and run the downloader.
+title YTM Downloader
+echo Success^!
+echo.
+echo To download this music now, close this script and run the downloader.
 echo You can also add more music to download below.
+echo.
 echo.
 goto prompt
 
@@ -66,6 +105,7 @@ if not exist "Redistributables\YouTube-DL\youtube-dl.exe" set integrityverificat
 if not exist "Redistributables\Downloader.cmd" set integrityverification=1 && echo Missing "Redistributables\Downloader.cmd"
 if not exist "Redistributables\Get Info.cmd" set integrityverification=1 && echo Missing "Redistributables\Get Info.cmd"
 if not exist "Redistributables\Sleep.vbs" set integrityverification=1 && echo Missing "Redistributables\Sleep.vbs"
+if not exist "Redistributables\msg.exe" set integrityverification=1 && echo Missing "Redistributables\msg.exe"
 if %integrityverification%== 2 goto integritypass
 echo.
 echo One or more of the required redistributables is missing or not found. Please visit this project on GitHub.
@@ -90,7 +130,7 @@ del /q Redistributables\FFMPEG\ffmpeg-2021-02-07-git-a52b9464e4-full_build.zip
 if exist "C:\Program Files\AlbumArtDownloader" (
 copy /y "C:\Program Files\AlbumArtDownloader" "Redistributables\AlbumArtDownloader" >nul 2>&1
 del /q "Redistributables\AlbumArtDownloader\AlbumArt.exe"
-msg %username% All required files from AlbumArtDownloader have been copied to this project folder. You're free to uninstall the program now if you'd like.
+Redistributables\msg.exe %username% All required files from AlbumArtDownloader have been copied to this project folder. You're free to uninstall the program now if you'd like.
 )
 goto integritycheck_resume
 
