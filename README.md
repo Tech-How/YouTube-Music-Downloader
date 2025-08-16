@@ -5,18 +5,16 @@ A frontend for youtube-dlp, adding metadata to downloaded tracks.
 
 This project will allow you to use [youtube-dlp](https://github.com/yt-dlp/yt-dlp) to download music from YouTube Music, and automatically add album artwork, artist name, album name, and track info to the files. They can then be added to a media player, such as iTunes or VLC, transferred to devices, or whatever you'd like. Unlike the `--embed-metadata` switch in youtube-dlp, this embeds the actual album cover, and not the video thumbnail. This project is still very early in development, and as such there will be issues. Some metadata pulled from YouTube is formatted in a way that confuses the downloader and will cause incorrect data to be applied. This document includes a detailed explanation of how the downloader works. If you find an issue that is reproducible under specific conditions, or have general feedback, feel free to open an issue report.
 
-⚠ Having issues? Please try including the latest version of [yt-dlp](https://github.com/yt-dlp/yt-dlp/releases) in your project folder.
-
-## v1.2 Release Notes
-- Added script to import songs to a media player by playlist order or date downloaded
-- Added script to check for duplicates in two folders
-- Music is now organized into folders by the date they were downloaded
-- Added support for disc numbers
-- Cache folder is now automatically removed at the end of download
-- The Add Music script will now alert you if a download is already in progress
-- The Add Music script will now hide the instructions after being used for some time
-- Added link to check for updates in project directory
-- Made improvements to simplify initial setup process
+## v1.3 Release Notes
+- The downloader engine will now auto-update
+- Added progress counter while downloading
+- Added queue counter on Add Music script
+- When downloading albums, the folder will inherit the album title
+- Added parsing support for Beatbump.io
+- Failed downloads will be automatically retried
+- Clarified languages in some locations
+- Added experimental video support via standalone script only. Videos do not have the proper information to be automatically tagged for use in media organizers.
+- Discontinued use of executables for packaging format
 
 ## Setup Instructions
 This project is written in batch, and requires additional programs that I do not own the license to in order to function correctly. Below are links to those programs, as well as where they need to be placed to be read by the downloader.
