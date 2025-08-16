@@ -1,5 +1,5 @@
 # YouTube Music Downloader
-A frontend for youtube-dlp, adding metadata to downloaded tracks.
+An experimental toolkit for media preservation, powered by yt-dlp.
 
 <img src="https://raw.githubusercontent.com/Tech-How/YouTube-Music-Downloader/main/images/repo/readme/1.png"/>
 
