@@ -29,7 +29,7 @@ YouTube stores and serves its content using several different formats, so that t
 
 If you're trying to archive material for offline use, you'll discover this. In this project, **.mkv is encouraged since unlike .mp4, it's a _container_ that allows storing content without re-encoding it, preserving as close to the original stream quality as possible.** It takes the video and audio tracks and embeds them in the file directly as Google is serving them, without any modification. If you're not preserving YouTube content and don't need the 1:1 copy, you're given an option to change this on first run. Above 1080p, Google doesn't always serve mp4 files, so they will be re-encoded from webm to mp4.
 
-TL;DR - if none of that made sense, just choose whatever format you want.
+TL;DR - If you're a normal user who just needs a video file, choose **mp4.** If you're an archivist who needs a bit-perfect copy, choose **mkv.**
 
 To view all the formats being served for a specific video, run `yt-dlp VIDEO_URL -F`. To learn more about YouTube content formats, click [here](https://gist.github.com/MartinEesmaa/2f4b261cb90a47e9c41ba115a011a4aa).
 
