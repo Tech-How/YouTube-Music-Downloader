@@ -24,6 +24,10 @@ This project is written in batch, and requires additional programs that I do not
 - Download and install [Album Art Downloader](https://sourceforge.net/projects/album-art/).
 - You should be all set. The program will notify you if there are any missing components. Refer to the included Help file for more information.
 
+## Troubleshooting
+- If you experience a reproducible crash, please open an issue report with details about it.
+- If the app gets stuck saying there are downloads in progress when there aren't, you can reset it by running `Download.cmd /reset`, or by running the `Reset App` script in the Settings folder.
+
 ## Why is .mkv recommended for videos instead of .mp4?
 YouTube stores and serves its content using several different formats, so that they can ensure content plays back optimally on a range of devices. The most common video format they use is .webm, and audio is typically either opus or m4a. None of these are "common" formats that most users are familiar with, but Google uses them because they're much more efficient at encoding data than .mp3, .mp4, etc. Since the content is only ever handled by the YouTube client apps or website, the user never has to deal with these formats, so it doesn't matter.
 
