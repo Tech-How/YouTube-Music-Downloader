@@ -5,16 +5,17 @@ An experimental toolkit for media preservation, powered by yt-dlp.
 
 This project will allow you to use [yt-dlp](https://github.com/yt-dlp/yt-dlp) to archive music from YouTube Music, and automatically add album artwork, artist name, album name, and track info to the files. They can then be added to a media player, such as iTunes or VLC, transferred to devices, or whatever you'd like. Unlike the `--embed-metadata` switch in youtube-dlp, this embeds the actual album cover, and not the video thumbnail. This project is still very early in development, and as such there will be issues. Some metadata pulled from YouTube is formatted in a way that confuses the downloader and will cause incorrect data to be applied. This document includes a detailed explanation of how the downloader works. If you find an issue that is reproducible under specific conditions, or have general feedback, feel free to open an issue report.
 
-## v1.3 Release Notes
-- The downloader engine will now auto-update
-- Added progress counter while downloading
-- Added queue counter on Add Music script
-- When downloading albums, the folder will inherit the album title
-- Added parsing support for Beatbump.io
-- Failed downloads will be automatically retried
-- Clarified languages in some locations
-- Added experimental video support via standalone script only. Videos do not have the proper information to be automatically tagged for use in media organizers.
-- Discontinued use of executables for packaging format
+## v1.4 Release Notes
+- Video downloads are now officially supported via a separate queuing script
+- Improved video support by always merging into mkv format instead of webm, with the option to force an mp4 file (Learn more about this on the README)
+- Suppressed irrelevant error messages in the Add scripts
+- Improved download retry handling by making the retry count semi-configurable by editing the Redistributables\Downloader script, and allowing the user to skip a stubborn download
+- Added the ability to reset the app's data in case of an error
+- Changed FFMPEG source to reduce file size and update to latest version
+- Renamed youtube-dl to yt-dlp
+- Migrated setup code to separate file and refactored settings wizard
+- Bug fixes and improvements
+- Code comments and cleanup
 
 ## Setup Instructions
 This project is written in batch, and requires additional programs that I do not own the license to in order to function correctly. Below are links to those programs, as well as where they need to be placed to be read by the downloader.
