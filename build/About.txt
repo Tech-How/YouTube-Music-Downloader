@@ -1,0 +1,25 @@
+YouTube Music Downloader
+Created by Tech How
+Powered by yt-dlp
+Version 1.4 - Build 08.01.2026
+
+Before use, you'll need to download each required item in the Redistributables folder. Instructions are also available on GitHub.
+
+This app's main function is to help you archive your YouTube Music library.
+It differs from other downloaders by focusing audio quality and metadata accuracy.
+Most web YouTube to MP3 converters are full of ads and download low-quality files with incorrect file names and missing metadata.
+
+This app downloads the highest quality audio available to free users, and pairs it with the most widely adopted audio container with all metadata filled in.
+
+
+Script Information:
+Add Music - Used to add a YouTube music playlist containing only official audio tracks. This is the only script that supports all album cover and metadata features.
+Add Videos - Used when there are any videos in your playlist, or just to download video content. Will not apply album covers or advanced metadata.
+Import - Imports audio files from a folder to your media program.
+Find Duplicates - Searches for and identifies duplicate audio files in two folders.
+
+Troubleshooting:
+If the app gets stuck in a loop of error messages, or you need to reset its state, you can run Download.cmd with the parameter /reset.
+
+For more information, visit this project on GitHub.
+https://github.com/Tech-How/YouTube-Music-Downloader
