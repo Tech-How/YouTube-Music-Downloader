@@ -1,0 +1,1 @@
+Download the "ffmpeg-master-latest-win64-gpl-shared.zip" file from BtbN on GitHub from the given shortcut to the downloads page and move it to this folder. Then, run "Add Music.cmd". The script will automatically unzip the ZIP file, extract its contents and delete the ZIP file.

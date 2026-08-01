@@ -3,7 +3,7 @@
 
 @echo off
 echo Updating...
-"%~dp0Redistributables\YouTube-DL\youtube-dl.exe" --update >nul 2>&1
+"%~dp0Redistributables\yt-dlp\yt-dlp.exe" --update >nul 2>&1
 cls
 set/p "URL=URL: "
 set/p "OUT=Output File Name: "
@@ -16,9 +16,10 @@ if errorlevel 1 goto dl_video
 
 
 :dl_video
-"%~dp0Redistributables\YouTube-DL\youtube-dl.exe" -o "%~dp0%OUT%" --no-warnings --embed-metadata --no-check-certificate --audio-quality 0 --restrict-filenames --ffmpeg-location "%~dp0Redistributables\FFMPEG\bin\ffmpeg.exe" %URL%
+"%~dp0Redistributables\yt-dlp\yt-dlp.exe" -o "%~dp0%OUT%" --no-warnings --embed-metadata --no-check-certificate --audio-quality 0 --restrict-filenames --ffmpeg-location "%~dp0Redistributables\FFMPEG\bin\ffmpeg.exe" %URL%
 exit /b
 
 :dl_audio
-"%~dp0Redistributables\YouTube-DL\youtube-dl.exe" -o "%~dp0%OUT%" -x --audio-format mp3 --no-warnings --embed-metadata --no-check-certificate --audio-quality 0 --restrict-filenames --ffmpeg-location "%~dp0Redistributables\FFMPEG\bin\ffmpeg.exe" %URL%
+"%~dp0Redistributables\yt-dlp\yt-dlp.exe" -o "%~dp0%OUT%" -x --audio-format mp3 --no-warnings --embed-metadata --no-check-certificate --audio-quality 0 --restrict-filenames --ffmpeg-location "%~dp0Redistributables\FFMPEG\bin\ffmpeg.exe" %URL%
+
 exit /b

@@ -45,7 +45,7 @@ set totaltracks=%totaltracks: =%
 set dlTryCount=0
 set dlTrySeconds=0
 :dlRetry
-Redistributables\YouTube-DL\youtube-dl.exe "https://www.youtube.com/watch?v=%URL%" -o "%workingDir%\Cache\%temp%\%%(track)s;%%(artist)s;%%(album)s;" -x --audio-format mp3 --no-warnings --embed-metadata --no-check-certificate --audio-quality 0 --restrict-filenames --ffmpeg-location "%~dp0FFMPEG\bin\ffmpeg.exe" --postprocessor-args "-metadata track="%currenttrack%/%totaltracks%" -metadata disc="1/1""
+Redistributables\yt-dlp\yt-dlp.exe "https://www.youtube.com/watch?v=%URL%" -o "%workingDir%\Cache\%temp%\%%(track)s;%%(artist)s;%%(album)s;" -x --audio-format mp3 --no-warnings --embed-metadata --no-check-certificate --audio-quality 0 --restrict-filenames --ffmpeg-location "%~dp0FFMPEG\bin\ffmpeg.exe" --postprocessor-args "-metadata track="%currenttrack%/%totaltracks%" -metadata disc="1/1""
 if errorlevel 1 (
 	if %dlTryCount%==6 (
 	echo.

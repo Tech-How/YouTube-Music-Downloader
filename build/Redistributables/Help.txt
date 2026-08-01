@@ -1,0 +1,5 @@
+It's recommended to update these redistributables whenever newer versions are released (optional).
+
+To do so:
+1. Manually delete the redistributables you want to replace with newer versions.
+2. Follow the instructions in each redistributable's folder to redownload them (in the "Help.txt" file in each folder).

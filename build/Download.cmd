@@ -37,7 +37,7 @@ set lastUpdateCheck=%lastUpdateCheck: =%
 for /F "tokens=2 delims=. " %%a in ("%date%") do set "currentDate=%%a"
 if "%currentDate%" equ "%lastUpdateCheck%" goto yt-dl-update-skip
 echo Checking for engine updates...
-Redistributables\YouTube-DL\youtube-dl.exe --update >nul 2>&1
+Redistributables\yt-dlp\yt-dlp.exe --update >nul 2>&1
 echo %currentDate% > Settings\lastUpdateCheck.txt
 echo true > Settings\engineUpdatesAllowed.txt
 cls
@@ -83,7 +83,6 @@ goto start
 
 :integritycheck
 if not exist Redistributables\FFMPEG\bin goto prepare_redistributables
-if not exist Redistributables\YouTube-DL\youtube-dl.exe goto prepare_redistributables
 if not exist Redistributables\AlbumArtDownloader\aad.exe goto prepare_redistributables
 :integritycheck_resume
 set integrityverification=2
@@ -91,9 +90,9 @@ if not exist "Add Music.cmd" set integrityverification=1 && echo Missing "Add Mu
 if not exist "Download.cmd" set integrityverification=1 && echo Missing "Download.cmd"
 if not exist "Import.cmd" set integrityverification=1 && echo Missing "Import.cmd"
 if not exist "Find Duplicates.cmd" set integrityverification=1 && echo Missing "Find Duplicates.cmd"
-if not exist "Redistributables\AlbumArtDownloader\aad.exe" set integrityverification=1 && echo Missing "Redistributables\AlbumArtDownloader\aad.exe"
-if not exist "Redistributables\FFMPEG\bin\ffmpeg.exe" set integrityverification=1 && echo Missing "Redistributables\FFMPEG\bin\ffmpeg.exe"
-if not exist "Redistributables\YouTube-DL\youtube-dl.exe" set integrityverification=1 && echo Missing "Redistributables\YouTube-DL\youtube-dl.exe"
+if not exist "Redistributables\AlbumArtDownloader\aad.exe" set integrityverification=1 && echo AlbumArtDownloader isn't installed. Install AAD and try again. You may uninstall it later.
+if not exist "Redistributables\FFMPEG\bin\ffmpeg.exe" set integrityverification=1 && echo Missing "Redistributables\FFMPEG\ffmpeg-master-latest-win64-gpl-shared.zip"
+if not exist "Redistributables\yt-dlp\yt-dlp.exe" set integrityverification=1 && echo Missing "Redistributables\yt-dlp\yt-dlp.exe"
 if not exist "Redistributables\Downloader.cmd" set integrityverification=1 && echo Missing "Redistributables\Downloader.cmd"
 if not exist "Redistributables\Get Info.cmd" set integrityverification=1 && echo Missing "Redistributables\Get Info.cmd"
 if not exist "Redistributables\Sleep.vbs" set integrityverification=1 && echo Missing "Redistributables\Sleep.vbs"
@@ -108,21 +107,25 @@ exit
 :prepare_redistributables
 echo Setting up...
 echo.
-if exist Redistributables\YouTube-DL\yt-dlp.exe ren Redistributables\YouTube-DL\yt-dlp.exe youtube-dl.exe
-if exist Redistributables\FFMPEG\ffmpeg-2021-02-07-git-a52b9464e4-full_build.zip (
-tar.exe -x -v -f "Redistributables\FFMPEG\ffmpeg-2021-02-07-git-a52b9464e4-full_build.zip" -C "Redistributables\FFMPEG" >nul 2>&1
-move Redistributables\FFMPEG\ffmpeg-2021-02-07-git-a52b9464e4-full_build\bin Redistributables\FFMPEG\ >nul 2>&1
-move Redistributables\FFMPEG\ffmpeg-2021-02-07-git-a52b9464e4-full_build\doc Redistributables\FFMPEG\ >nul 2>&1
-move Redistributables\FFMPEG\ffmpeg-2021-02-07-git-a52b9464e4-full_build\presets Redistributables\FFMPEG\ >nul 2>&1
-move Redistributables\FFMPEG\ffmpeg-2021-02-07-git-a52b9464e4-full_build\LICENSE Redistributables\FFMPEG\ >nul 2>&1
-move Redistributables\FFMPEG\ffmpeg-2021-02-07-git-a52b9464e4-full_build\README.txt Redistributables\FFMPEG\ >nul 2>&1
-rd Redistributables\FFMPEG\ffmpeg-2021-02-07-git-a52b9464e4-full_build >nul 2>&1
-del /q Redistributables\FFMPEG\ffmpeg-2021-02-07-git-a52b9464e4-full_build.zip
+if exist Redistributables\FFMPEG\ffmpeg-master-latest-win64-gpl-shared.zip (
+tar.exe -x -v -f "Redistributables\FFMPEG\ffmpeg-master-latest-win64-gpl-shared.zip" -C "Redistributables\FFMPEG" >nul 2>&1
+move Redistributables\FFMPEG\ffmpeg-master-latest-win64-gpl-shared\ffmpeg-master-latest-win64-gpl-shared Redistributables\FFMPEG\ >nul 2>&1
+move Redistributables\FFMPEG\ffmpeg-master-latest-win64-gpl-shared\doc Redistributables\FFMPEG\ >nul 2>&1
+move Redistributables\FFMPEG\ffmpeg-master-latest-win64-gpl-shared\presets Redistributables\FFMPEG\ >nul 2>&1
+move Redistributables\FFMPEG\ffmpeg-master-latest-win64-gpl-shared\bin Redistributables\FFMPEG\ >nul 2>&1
+move Redistributables\FFMPEG\ffmpeg-master-latest-win64-gpl-shared\include Redistributables\FFMPEG\ >nul 2>&1
+move Redistributables\FFMPEG\ffmpeg-master-latest-win64-gpl-shared\lib Redistributables\FFMPEG\ >nul 2>&1
+move Redistributables\FFMPEG\ffmpeg-master-latest-win64-gpl-shared\LICENSE.txt Redistributables\FFMPEG\ >nul 2>&1
+rd Redistributables\FFMPEG\ffmpeg-master-latest-win64-gpl-shared >nul 2>&1
+del /q Redistributables\FFMPEG\ffmpeg-master-latest-win64-gpl-shared.zip
 )
+if not exist "Redistributables\AlbumArtDownloader\aad.exe" (
 if exist "C:\Program Files\AlbumArtDownloader" (
 copy /y "C:\Program Files\AlbumArtDownloader" "Redistributables\AlbumArtDownloader" >nul 2>&1
 del /q "Redistributables\AlbumArtDownloader\AlbumArt.exe"
-Redistributables\msg.exe %username% All required files from AlbumArtDownloader have been copied to this project folder. You're free to uninstall the program now if you'd like.
+del /q "Redistributables\AlbumArtDownloader\uninst.exe"
+Redistributables\msg.exe %username% All required files from AlbumArtDownloader have been copied to this project folder. You may uninstall the program now if you want.
+)
 )
 goto integritycheck_resume
 

@@ -1,0 +1,1 @@
+Download the AlbumArtDownloader setup file (e.g. AlbumArtDownloaderXUI-1.05.exe) and install it. Then, run "Add Music.cmd". The script will automatically copy over the required files to this folder.

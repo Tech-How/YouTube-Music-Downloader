@@ -1,15 +1,15 @@
 @if (@X)==(@Y) @end /* JScript comment
 	@echo off
 	
-	rem :: the first argument is the script name as it will be used for proper help message
+	rem :: The first argument is the script name as it'll be used for a proper help message
 	cscript //E:JScript //nologo "%~f0" %*
 
 	exit /b %errorlevel%
 	
 @if (@X)==(@Y) @end JScript comment */
 
-//gets an information that normally is acquired by right click-details 
-// can get image dimensions , media file play time and etc.
+// Retrieves all available metadata
+// Can get image dimensions, duration, etc.
  
 ////// 
 FSOObj = new ActiveXObject("Scripting.FileSystemObject");
@@ -42,7 +42,7 @@ if (number<-1 || number >288 ) {
 }
 
 
-//fso
+// FSO
 ExistsItem = function (path) {
 	return FSOObj.FolderExists(path)||FSOObj.FileExists(path);
 }
