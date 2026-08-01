@@ -1,5 +1,11 @@
-It's recommended to update these redistributables whenever newer versions are released (optional).
+This folder contains tools required for the main program to function.
 
-To do so:
-1. Manually delete the redistributables you want to replace with newer versions.
-2. Follow the instructions in each redistributable's folder to redownload them (in the "Help.txt" file in each folder).
+- yt-dlp is used for fetching video metadata and downloading YouTube content.
+- FFMPEG is used for modifying downloaded content and converting files.
+- AlbumArtDownloader is used for fetching album covers.
+
+You can download each of these programs from the links inside their folders.
+yt-dlp is automatically kept up to date, and you don't have to do anything.
+FFMPEG and AlbumArtDownloader are not, but if you're having issues with either you may re-download them.
+
+Get Info.cmd provided by https://github.com/npocmaka/batch.scripts/
