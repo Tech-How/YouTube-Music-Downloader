@@ -23,7 +23,8 @@ This project is written in batch, and requires additional programs that I do not
 - Download [yt-dlp](https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp.exe). Once downloaded, save the file into **Redistributables\yt-dlp**.
 - Download [FFMPEG](https://github.com/BtbN/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-win64-gpl-shared.zip). Once downloaded, save the zip file into **Redistributables\FFMPEG**. The program will extract it automatically.
 - Download and install [Album Art Downloader](https://sourceforge.net/projects/album-art/).
-- You should be all set. The program will notify you if there are any missing components. Refer to the included Help file for more information.
+
+You should be all set. The program will notify you if there are any missing components. Refer to the included Help file for more information.
 
 ## Troubleshooting
 - If you experience a reproducible crash, please open an issue report with details about it.
